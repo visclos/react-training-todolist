@@ -1,8 +1,8 @@
 export const data = [
   {
     id: 1,
-    title: "Faire une lessive",
-    description: "Laver tout le linge sale",
+    title: "Approfondir TypeScript",
+    description: "Faire tous les exercices",
     done: false
   },
   {
