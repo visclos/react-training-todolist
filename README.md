@@ -37,9 +37,11 @@ In App.tsx, replace the hardcoded app title by the value of the const "title".
 ### Your first component
 
 Create a Header.tsx component in the components folder that contains the code below :
+```
 <div className="header">
   <h1>Replace me using the title const</h1>
 </div>;
+```
 
 Then, in App.tsx, replace the code of the header by the component you just created.
 
