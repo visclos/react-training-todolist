@@ -2,6 +2,7 @@
 
 Welcome to your first React project !
 In this app, you will discover the basic concepts of ReactJS.
+This is a pure frontend app, so the creation, update or deletion of the data are not persisted. Which means, each time you refresh the page, the app gets back to its initial state.
 
 ## Setup
 
@@ -59,13 +60,13 @@ Create an interface TaskType in a `Task.ts` file in the models folder that will 
   description: string;
   done: boolean;
 ```
+Update the Task component to pass a typed prop "task". To type this prop you have to use the interface.
 
 ### Iterate over an array in JSX
 
-Update the Task component to pass a typed prop "task". To type this prop you have to use the interface.
 Use the data imported in App.tsx and stored in the `tasks` const to iterate and render as many Task components as there are tasks in the data file.
 The Task component should take a "task" prop.
-Use JSX to replace the hardcoded title by the property `title` of the task prop in the Task component.
+Use JSX to replace the hardcoded title by the property `title` with a prop in the Task component.
 
 Hint: Use the `map` JS method on the list of tasks.
 
@@ -76,16 +77,17 @@ As you can see, the code of the Task component is written just one time but used
 
 App.tsx should not have the responsibility to iterate over the tasks.
 Create an intermediate component `TasksList.tsx` that does that and display each task using the Task component. 
-All the iteration logic should be transferred to the TasksList component and App.tsx should just call the TasksList component. And yes, the TasksList component should take a prop ;)
+All the iteration logic should be transferred to the TasksList component and App.tsx should just call the TasksList component. 
+And yes, the TasksList component should take a prop ;)
 
-Checkpoint: after this step, the App.tsx should only could 3 components: 
+Checkpoint: after this step, the App.tsx should only contain 3 components: 
 - `Header.tsx` that takes a prop `title`
 - `TasksList`that takes one prop
 - `TaskFormModal` as it was at the beginning of the exercise.
 
 ### The most used React hook : useState
 
-The "+" button should open the `TaskFormModal.tsx`. This component will be used to :
+The "+" button should open the `TaskFormModal.tsx`. This component will be used to:
 - create a new task
 - edit an existing task
 
@@ -98,7 +100,7 @@ But we need to be able to close it as well...
 
 To do that, the Modal should take a function as prop to close iteself when the "X" button or the "Annuler" button are clicked.
 The prop you need is already set. 
-Use the useState you created to open the modal ;)
+Hint: Use the useState you created to open the modal ;)
 
 ### Implement logic in the parent and trigger it in the child
 
@@ -118,31 +120,37 @@ In this step, we want to add a new task to the list. The flow is :
 - I click on the "+" button
 - The modal gets opened
 - The user sets the title and the descripton
-- The user clicks on "Enregistrer" and then the modal closes itself and we can see the new item in the list displayed in App.tsx
+- The user clicks on "Enregistrer" and then the modal closes itself and we can see the new item in the list displayed in App.tsx.
 
 To do that :
 - Find what function is passed to the modal as prop to create a new task
 - Implement the method logic 
 - Make sure the id of the newly created task equals the greater id of the tasks list + 1
-Hint: only the first argument of the function should be used at this step. It is a Javascript event from which you can retrieve values by using `new FormData(event.target)`;
+
+Hint: only the first argument of the function should be used at this step. It is a Javascript event from which you can retrieve values by using `new FormData(event.target)`.
 
 ### Update state in parent from an action triggered in child component
 
 What's missing now ? We can create a new task, delete it but we still can't edit an existing task. 
 As we did for the delete function, we need to pass the function `editTask` as prop to the Task component.
 Then when the user clicks on the edit button, the id of the task we want to edit can be stored in the App.tsx and directly passed to the modal.
-The modal hos to open itself directly.
-So the `taskToEdit` should not be a simple const, but... use the useState hook and be initialized to `null`.
+The modal has to open itself directly.
+So the `taskToEdit` should not be a simple const, but... should use the useState hook and be initialized to `null`.
 And the `editTask` function shloud update the `taskToEdit` state by giving it the task and open the modal.
 
 At the end of this step, we just want the modal to be opened with the task title and description displayed.
 
 ### UseEffect
 
-// Edit - UseEffect 
-// The task modal is rendered in the App.tsx.
-// Which means that initial values is empty when the component is rendered...
-// use a react hook in the modal to make the component listen to the changes of initial values
+Ok, I can see that the task to edit is passed to the modal in the initialValues prop.
+But when I click on "edit", I can not see the values of title and description I jast passed...
+Indeed ! But why ? As you can see, the `TaskFormModal` component is called in the App.tsx. Which means that, this component is NOT rendered when you open it, but when the App.tsx is executed. So basically, when you go to the url of the app, the modal is rendered, and as you can see, at first, the initial values are null. 
+
+How can we re-render the initial values when it gets updated then ? 
+Bu using a new react hook called `useEffect` in the `TaskFormModal`. 
+Check out the doc to understand how to use this hook and use it in the modal component.
+Finally, when you manage to display the values of the task to edit in the modal, you need to save them in the right function of the App.tsx by updating its logic. 
+Yes, it is a tricky one but it's cool to make mistakes, you will learn a lot :)
 
 ### Bonuses
 
