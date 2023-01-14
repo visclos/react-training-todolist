@@ -13,7 +13,7 @@ const App = () => {
     console.error("I need to be implemented");
   };
 
-  const addNewTask = (event: any, taskToEditId?: number) => {
+  const addOrEditTask = (event: any, taskToEditId?: number) => {
     event.preventDefault();
     console.error("I need to be implemented");
   };
@@ -43,7 +43,7 @@ const App = () => {
         handleClose={() =>
           console.log("pass me a method that will close the modal")
         }
-        addNewTask={addNewTask}
+        addOrEditTask={addOrEditTask}
         initialValues={
           taskToEdit != null
             ? {

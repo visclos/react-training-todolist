@@ -4,14 +4,14 @@ import "./TaskFormModal.css";
 type TaskFormModalProps = {
   show: boolean;
   handleClose: () => void;
-  addNewTask: (event: any, taskId?: number) => void;
+  addOrEditTask: (event: any, taskId?: number) => void;
   initialValues?: { id: number; title: string; description: string };
 };
 
 export const TaskFormModal = ({
   show,
   handleClose,
-  addNewTask,
+  addOrEditTask,
   initialValues,
 }: TaskFormModalProps) => {
   const [title, setTitle] = useState(initialValues?.title ?? undefined);
@@ -19,19 +19,23 @@ export const TaskFormModal = ({
     initialValues?.description ?? undefined
   );
 
-  // Use a hook to listen to the initial values changes here 
+  // Use a hook to listen to the initial values changes here
 
   if (!show) return null;
 
   return (
     <div className="modal">
       <section className="modal-main">
-        <button className="close-btn" type="button" onClick={handleClose}>
+        <button
+          className="close-btn"
+          type="button"
+          onClick={() => "The modal should close iteself"}
+        >
           X
         </button>
         <h3>Nouvelle tâche</h3>
         <form
-          onSubmit={(e) => addNewTask(e, initialValues?.id)}
+          onSubmit={(e) => addOrEditTask(e, initialValues?.id)}
           className="task-form"
         >
           <label>
@@ -56,7 +60,9 @@ export const TaskFormModal = ({
           </label>
           <div className="form-actions">
             <button type="submit">Enregistrer</button>
-            <button onClick={handleClose}>Annuler</button>
+            <button onClick={() => "The modal should close iteself"}>
+              Annuler
+            </button>
           </div>
         </form>
       </section>
